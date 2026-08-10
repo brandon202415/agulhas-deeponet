@@ -4,6 +4,13 @@ Written 2026-08-08 as an inventory of what should (and should not) go into the p
 GitHub repository for this project. Based on directly walking the current working
 directory — not a general template — so paths and sizes below are real.
 
+**Status as of 2026-08-08: the repo is live and pushed** at
+`https://github.com/brandon202415/agulhas-deeponet` with the "Include" set below (minus
+the deferred JSON/figure triage). The checklist at the very bottom of this file
+("Deferred pre-publication cleanup") is the next pass — explicitly **not done yet**,
+by the user's own choice, since the manuscript is still changing and it wasn't worth
+reorganizing twice. Do that pass once things settle, before treating the repo as final.
+
 The current `.gitignore` already excludes `data/`, `results/`, `.venv/`, `__pycache__/`,
 `*.pyc`, `.DS_Store`, and `logs/`. That's a good start but doesn't cover everything large
 or stale that's actually sitting in the repo (see "Also exclude" below) — the biggest gap
@@ -192,3 +199,55 @@ to publish, and (3) the 7 stale `manuscript_figures/` PNGs and 4 internal handof
 creating exactly the kind of "which version is real" ambiguity this project's own tracking
 documents have flagged and fixed multiple times already this session — worth applying the
 same discipline here before anything goes public.
+
+## Deferred pre-publication cleanup (not done — do this before treating the repo as final)
+
+User feedback 2026-08-08, on looking at the pushed repo: it needs a readability pass before
+it's actually presentable — agent-directed docs at root, and 27 `.slurm` files dumped flat
+at repo root with no grouping. Explicitly deferred rather than done immediately, since the
+manuscript is still changing and the user didn't want to reorganize twice. Scope, decided:
+
+**1. Remove or relocate all four agent-directed docs from repo root**, not just
+`ONBOARDING.md` — `CLAUDE.md` (explicitly addressed to "Claude Code," not a human reader),
+`RESEARCH_LOG.md`, and `MANUSCRIPT_ISSUES.md` too, despite the latter two having real
+scientific content (methodological corrections, review responses) underneath the
+session-log voice. Whether each one gets moved to `docs/history/` (joining the 5 already
+there) or dropped from the repo entirely is a per-file call to make at execution time, not
+resolved here — re-read each one fresh and decide based on whether the *content* (not the
+voice) is something a reviewer/reader would actually want. If `RESEARCH_LOG.md` or
+`MANUSCRIPT_ISSUES.md` get moved or cut, **`README.md` needs updating** — it currently
+references both by path at repo root.
+
+**2. Group the 27 `.slurm` files into `slurm/` subfolders.** Checked which `train_*.py`
+script each one actually invokes (not just guessed from filename) before proposing groups:
+
+- `slurm/cache/` — `build_cache.slurm`
+- `slurm/deeponet_whole_domain/` — `sweep.slurm`, `sweep_r3.slurm`, `seed_sweep.slurm`,
+  `train_agulhas.slurm`, `continuous_leadtime.slurm`, `deeponet_resaugment.slurm`,
+  `weekly_rolling_embargo_sweep.slurm`, `weekly_rolling_fullscale.slurm`,
+  `weekly_rolling_seed_sweep.slurm` (all invoke `train_agulhas_deeponet_prototype.py`,
+  the whole-domain DeepONet, across lead-time/resaugment/weekly-rolling variants)
+- `slurm/deeponet_patch/` — `patch_history_sweep.slurm`, `patch_seed_sweep.slurm`,
+  `patch_sweep.slurm`
+- `slurm/deeponet_cnnbranch/` — `cnnbranch_lr_sweep.slurm`, `cnnbranch_seed_sweep.slurm`
+- `slurm/cnn/` — `cnn_baseline.slurm`, `cnn_lr_sweep.slurm`, `cnn_seed_sweep.slurm`
+- `slurm/amse/` — `amse_seed_sweep.slurm`, `amse_weight_seed_check.slurm`,
+  `amse_weight_sweep.slurm`
+- `slurm/physics_informed/` — `cnn_physics_geo0.001_seed_sweep.slurm`,
+  `cnn_physics_seed_sweep.slurm`, `cnn_physics_weight_sweep.slurm`
+- `slurm/satellite/` — `satellite_validation.slurm`, `satellite_validation_cpu.slurm`
+- `slurm/sparse_reconstruction/` — `sparse_reconstruction_attention.slurm`
+
+All 27 accounted for. Moving these will break relative paths inside each `.slurm` script
+(working directory, output paths, sibling-script references) — check each one after moving,
+don't assume `git mv` alone is sufficient.
+
+**3. `REPO_FILE_LIST.md` itself (this file)** is arguably in the same category as the four
+agent-directed docs above — it's a planning artifact about the repo, not repo content. Worth
+the same removal-or-relocation call once its job is done, rather than leaving it at root
+indefinitely.
+
+**4. Still outstanding from before** (unrelated to this round's feedback, don't lose track
+of it while doing the above): the 140 root-level `eddy_tracking/*.json` files and the 7
+stale `manuscript_figures/*.png` — see "Judgment call" sections above. Same visit is a
+reasonable time to do this too, since it's the same kind of pass.
