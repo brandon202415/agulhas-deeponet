@@ -1,0 +1,40 @@
+=== AMSE w=0.01 (r=3, standard filter, fixed matplotlib) (5 file(s)) ===
+
+--- model: n_true=2336570, recall=0.9360 ---
+  By region (retroflection+upstream >=20E vs. downstream/Cape Basin <20E):
+    downstream/Cape Basin (<20E)     n_true=1021125  recall=0.9379  pos_err(n=957698)= 17.707 km
+    retroflection+upstream (>=20E)   n_true=1315445  recall=0.9345  pos_err(n=1229220)= 18.998 km
+  By polarity:
+    anticyclonic                     n_true=1150230  recall=0.9365  pos_err(n=1077191)= 18.183 km
+    cyclonic                         n_true=1186340  recall=0.9354  pos_err(n=1109727)= 18.675 km
+  By true-eddy amplitude quartile (m): ['0.0232', '0.0434', '0.0881']
+    Q1 (smallest amp)    n_true=584140  recall=0.8892
+    Q2                   n_true=584145  recall=0.9429
+    Q3                   n_true=584140  recall=0.9527
+    Q4 (largest amp)     n_true=584145  recall=0.9590
+  By true-eddy radius_e quartile (m): ['38438.6', '54384.1', '77750.1']
+    Q1 (smallest radius)   n_true=584140  recall=0.8956
+    Q2                     n_true=584145  recall=0.9351
+    Q3                     n_true=584140  recall=0.9498
+    Q4 (largest radius)    n_true=584145  recall=0.9633
+  Matched-eddy amplitude error: mean_abs=0.01084 m, median_abs=0.00424 m (mean true amplitude=0.07406 m, n=2186918)
+
+--- persist: n_true=2336570, recall=0.9266 ---
+  By region (retroflection+upstream >=20E vs. downstream/Cape Basin <20E):
+    downstream/Cape Basin (<20E)     n_true=1021125  recall=0.9329  pos_err(n=952600)= 20.988 km
+    retroflection+upstream (>=20E)   n_true=1315445  recall=0.9218  pos_err(n=1212520)= 25.550 km
+  By polarity:
+    anticyclonic                     n_true=1150230  recall=0.9261  pos_err(n=1065270)= 23.464 km
+    cyclonic                         n_true=1186340  recall=0.9271  pos_err(n=1099850)= 23.619 km
+  By true-eddy amplitude quartile (m): ['0.0232', '0.0434', '0.0881']
+    Q1 (smallest amp)    n_true=584140  recall=0.8805
+    Q2                   n_true=584145  recall=0.9319
+    Q3                   n_true=584140  recall=0.9442
+    Q4 (largest amp)     n_true=584145  recall=0.9499
+  By true-eddy radius_e quartile (m): ['38438.6', '54384.1', '77750.1']
+    Q1 (smallest radius)   n_true=584140  recall=0.8814
+    Q2                     n_true=584145  recall=0.9249
+    Q3                     n_true=584140  recall=0.9432
+    Q4 (largest radius)    n_true=584145  recall=0.9570
+  Matched-eddy amplitude error: mean_abs=0.01332 m, median_abs=0.00514 m (mean true amplitude=0.07411 m, n=2165120)
+
