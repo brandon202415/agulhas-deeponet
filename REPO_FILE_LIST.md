@@ -212,11 +212,22 @@ manuscript is still changing and the user didn't want to reorganize twice. Scope
 `RESEARCH_LOG.md`, and `MANUSCRIPT_ISSUES.md` too, despite the latter two having real
 scientific content (methodological corrections, review responses) underneath the
 session-log voice. Whether each one gets moved to `docs/history/` (joining the 5 already
-there) or dropped from the repo entirely is a per-file call to make at execution time, not
-resolved here — re-read each one fresh and decide based on whether the *content* (not the
-voice) is something a reviewer/reader would actually want. If `RESEARCH_LOG.md` or
-`MANUSCRIPT_ISSUES.md` get moved or cut, **`README.md` needs updating** — it currently
-references both by path at repo root.
+there) or dropped from the *public repo* entirely is a per-file call to make at execution
+time, not resolved here — re-read each one fresh and decide based on whether the *content*
+(not the voice) is something a reviewer/reader would actually want.
+
+**"Dropped from the repo" means gitignored (untracked, stays on local disk), never `rm`.**
+User confirmed 2026-08-09 they want local copies of the handoff docs and `RESEARCH_LOG.md`
+kept regardless of what happens to the public GitHub view — if a file is going to disappear
+from the public repo, the mechanism is `git rm --cached` + add to `.gitignore` (removes it
+from future commits and the pushed remote, keeps the working-tree file untouched on disk),
+not deleting the file itself. If it's already been pushed in an earlier commit, purging it
+from GitHub's history entirely would need a history rewrite (`git filter-repo` or similar) —
+don't do that without asking first, since it force-rewrites shared history; usually just
+removing it going forward is enough and the old commit being in history is fine.
+
+If `RESEARCH_LOG.md` or `MANUSCRIPT_ISSUES.md` get moved or cut, **`README.md` needs
+updating** — it currently references both by path at repo root.
 
 **2. Group the 27 `.slurm` files into `slurm/` subfolders.** Checked which `train_*.py`
 script each one actually invokes (not just guessed from filename) before proposing groups:
